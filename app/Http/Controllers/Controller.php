@@ -139,8 +139,18 @@ public function logout(){
 
 public function showD( $id){
     $Doctor =  Doctors::find($id);
+
+    // if(is_string($Doctor->available_times)){
+    //  $a = json_decode($Doctor->available_times , true);
+     
+    // }
+    // else{
+    //     $a = 'null';
+    // }
+
+
     
-    return view('Admin.DoctorShow' , ['d'=>$Doctor]);
+    return view('Admin.DoctorShow' , ['d'=>$Doctor, 'appointment'=>$Doctor->available_times]);
 }
 
 public function showP( $id){
@@ -175,7 +185,10 @@ public function getallApointment(){
 }
 public function getallDoctor(){
     $d = Doctors::with('user')->get();
-    return view('Admin.userd' , ['D'=>$d]);}
+    return view('Admin.userd' , [
+        'D'=>$d,
+
+]);}
 
 public function getallPatient(){
     $p = User::where('role','patient')->get();

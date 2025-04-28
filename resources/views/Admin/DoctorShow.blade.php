@@ -1,21 +1,26 @@
 @extends('Layout.index')
 @section('Body')
-<strong>The Doctor name is {{$d->user->name}}</strong><br>
+<strong>The Doctor name is : {{$d->user->name}}</strong><br>
 <table>
     <tr align="center">
-       <Strong>the Sepcialization is {{ $d->specialization }}</Strong>
+       <Strong>the Sepcialization is :{{ $d->specialization }}</Strong>
     </tr><br>
     <tr align="center">
-        <Strong>the Location is {{ $d->location }}</Strong>
+        <Strong>the Location is : {{ $d->location }}</Strong>
      </tr><br>
      <tr align="center">
-        <Strong>the Available time From  @json($d->available_times) </Strong>
+        <Strong>the Available time : 
+         @foreach ($d->available_times as $day => $time)
+         <li>{{ ucfirst($day) }}: {{ $time[0] }} - {{ $time[1] }}</li>
+
+         @endforeach
+        </Strong>
      </tr><br>
      <tr align="center">
-        <Strong>the Email From {{ $d->user->email }}</Strong>
+        <Strong>the Email : {{ $d->user->email }}</Strong>
      </tr><br>
      <tr align="center">
-        <Strong>the Phone number From {{$d->user->Phone_number}}</Strong>
+        <Strong>the Phone number :  {{$d->user->Phone_number}}</Strong>
      </tr><br>
 </table>
 <br>
