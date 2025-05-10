@@ -55,15 +55,6 @@ class DoctorsController extends Controller
     public function update($id)
     {
         $doctors = Doctors::find($id);
-        // $userid = $doctors->user_id;
-        // // dd($userid);
-        // $user = User::find($userid);
-        // $user->update([
-        //             'email' => request('email'),
-        //             'password' => request('password'),
-        //             'Phone_number' => request('phone_number'),
-        //             'role' => 'doctor',
-        //     ]);
         $doctors->user->update([
             'email' => request('email'),
             'password' => request('password'),
@@ -82,7 +73,9 @@ class DoctorsController extends Controller
     public function destroy($id)
     {
         $doctors = Doctors::find($id);
-        $doctors->delete();
+        $user = User::find($doctors->user_id);
+        $user->delete();
+       // $doctors->delete();
         // dd($doctors);
         return redirect('/Doctor');
     }

@@ -63,16 +63,22 @@ class ApointmentController extends Controller
     {
        $a =  Auth::user();
        $u_id = $a->id;
+      
        $d_id = Doctors::where('user_id',$u_id)->first();
-    //    dd($d_id);
+    //  dd($d_id);
        $app = Apointment::find($id);
-    //    dd($app);
-       $ad = Apointment::where('doctor_id',$d_id->id)->first( );
-    //   dd( $ad);
+    //   dd($app);
+    $ad = Apointment::where('doctor_id',$d_id->id)->first( );
+     if(!is_null($app)){
       if($app->id === $ad->id){
         // dd($app->id , $ad->id);
-        return view ('apointment.editappointment',['a'=>$app]);}
+        return view ('apointment.editappointment',['a'=>$app]);
+    }
       else{
+            return "Not Your Appointment";
+        }
+    }
+        else{
             return "Not Your Appointment";
         }
     }

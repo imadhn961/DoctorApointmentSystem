@@ -19,7 +19,7 @@ class Controller extends BaseController
         request()->validate(
             [
                 'name' => ['required'] , 
-                'password' => ['required']
+               // 'password' => ['required|min:8|max:30']
     
             ]
             );
@@ -64,7 +64,7 @@ class Controller extends BaseController
         request()->validate(
         [
             'name' => ['required'] , 
-            'password' => ['required']
+        //    'password' => ['required|min:8|max:30']
         ]
         );
 
@@ -85,7 +85,7 @@ class Controller extends BaseController
 public function login(){
     $Attribute = request()->validate([
                 'email'=>['required'],
-    // 'password'=>request('required'), => this is false
+                'password' => ['required']
     ]);
     $user = User::where('email' , request('email'))->first();
     if(!is_null($user)){
@@ -95,23 +95,28 @@ public function login(){
                         'email' => request('email'),
                         'password' => request('password'),
                 ]);
-
-                        request() -> session() -> regenerate();
-
-                        return redirect('/user_page');
+                        if($log){
+                            request() -> session() -> regenerate();
+                            return redirect('/user_page');
+                        }
+                           
+                            else{
+                                return redirect('/');
+                            }
                 }
                 elseif($user->role === 'doctor'){
                     $log = Auth::attempt([
                         'email' => request('email'),
                         'password' => request('password'),
                     ]);
+                    if($log){
                     request() -> session() -> regenerate();
-                    return redirect('Apointment');
+                    return redirect('Apointment');}
+                   
+                    else{
+                        return redirect('/');
+                    }
                 }
-
-            // else{
-            //         return redirect('/');
-            //     }
         }
     else
         { 
@@ -139,17 +144,6 @@ public function logout(){
 
 public function showD( $id){
     $Doctor =  Doctors::find($id);
-
-    // if(is_string($Doctor->available_times)){
-    //  $a = json_decode($Doctor->available_times , true);
-     
-    // }
-    // else{
-    //     $a = 'null';
-    // }
-
-
-    
     return view('Admin.DoctorShow' , ['d'=>$Doctor, 'appointment'=>$Doctor->available_times]);
 }
 
