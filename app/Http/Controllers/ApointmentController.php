@@ -65,13 +65,10 @@ class ApointmentController extends Controller
        $u_id = $a->id;
       
        $d_id = Doctors::where('user_id',$u_id)->first();
-    //  dd($d_id);
        $app = Apointment::find($id);
-    //   dd($app);
-    $ad = Apointment::where('doctor_id',$d_id->id)->first( );
      if(!is_null($app)){
-      if($app->id === $ad->id){
-        // dd($app->id , $ad->id);
+      if($app->doctor_id === $d_id->id){
+      
         return view ('apointment.editappointment',['a'=>$app]);
     }
       else{

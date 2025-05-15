@@ -50,7 +50,7 @@ Route::get('/Doctor/{id}' , [Controller::class , 'ShowD']);
 Route::get('/Patient/{id}' , [Controller::class , 'ShowP']);
 
 Route::delete('/Delete/{Doctor}' , [DoctorsController::class , 'destroy']);
-Route::get('/Deletep/{id}' , [Controller::class , 'destroypatient']);
+Route::delete('/Deletep/{id}' , [Controller::class , 'destroypatient']);
 Route::get('/editDoctor/{id}',[DoctorsController::class,'edit']);
 Route::patch('UpdateDoctor/{id}' , [DoctorsController::class , 'update']);
 Route::patch('Updatepatient/{id}' , [Controller::class , 'updatep']);

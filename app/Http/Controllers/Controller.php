@@ -174,7 +174,8 @@ public function destroypatient($id){
     return redirect('/Patient');}
 
 public function getallApointment(){
-    $a = Apointment::all();
+   $a = Apointment::with('doctor', 'patient')->get();
+  // $a = Apointment::all();
     return view('Admin.userA' , ['A'=>$a]);
 }
 public function getallDoctor(){

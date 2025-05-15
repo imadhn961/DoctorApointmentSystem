@@ -29,7 +29,7 @@
     
     <div class="flex flex-col items-start p-10 space-y-2">
         @forelse($A as $a)
-            <div class="text-base text-gray-800 font-medium">{{ $a->appointment_date }}</div>
+            <div class="text-base text-gray-800 font-medium">{{ $a->appointment_date }} :: Doctor : {{$a->doctor->user->name}} :: Patient : {{$a->patient->name}}</div>
         @empty
             <div class="text-sm text-gray-500 italic">No appointments found.</div>
         @endforelse
